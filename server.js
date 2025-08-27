@@ -7,19 +7,30 @@ const rootDir = require("./utils/path");
 
 const app = express();
 const bodyParser = require("body-parser");
+const expressHbs = require("express-handlebars");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.set('view engine','pug');
-app.set('views','views')
+app.engine(
+  "hbs",
+  expressHbs({
+    layoutDirs: "views/layouts/",
+    defaultLayout: "main-layout",
+    extname: "hbs",
+  })
+); // for handlebars
+
+// app.set('view engine','pug');
+app.set("view engine", "hbs");
+app.set("views", "views");
 // middleware
 
 app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).render('404',{pageTitle: 'Page Not Found'});
+  res.status(404).render("404", { pageTitle: "Page Not Found" });
 });
 
 app.listen(3000, (req, res) => {
