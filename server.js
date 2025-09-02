@@ -7,22 +7,22 @@ const rootDir = require("./utils/path");
 
 const app = express();
 const bodyParser = require("body-parser");
-const expressHbs = require("express-handlebars");
+// const expressHbs = require("express-handlebars");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.engine(
-  "hbs",
-  expressHbs({
-    layoutDirs: "views/layouts/",
-    defaultLayout: "main-layout",
-    extname: "hbs",
-  })
-); // for handlebars
+// app.engine(
+//   "hbs",
+//   expressHbs({
+//     layoutDirs: "views/layouts/",
+//     defaultLayout: "main-layout",
+//     extname: "hbs",
+//   })
+// ); // for handlebars
 
 // app.set('view engine','pug');
-app.set("view engine", "hbs");
+app.set("view engine", "ejs");
 app.set("views", "views");
 // middleware
 
